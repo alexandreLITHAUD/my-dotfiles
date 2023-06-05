@@ -1,0 +1,8 @@
+Host g5k
+  User alithaud
+  Hostname access.grid5000.fr
+  ForwardAgent no
+Host *.g5k
+  User alithaud
+  ProxyCommand ssh g5k -W "$(basename %h .g5k):%p"
+  ForwardAgent no
