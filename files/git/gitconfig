@@ -1,0 +1,23 @@
+[user]
+
+	email = alexandre.ltd71@gmail.com
+	name = Alexandre Lithaud
+
+[alias]
+
+	st = status
+	tlog = log --oneline --graph
+
+[merge]
+
+	tool = meld
+
+[diff]
+
+	tool = meld
+
+[init]
+
+	defaultBranch = main
+[safe]
+	directory = /etc/nixos
