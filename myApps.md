@@ -20,6 +20,7 @@
 - [bat](link)
 - [micro](link)
 - [vscode](link)
+- [obsidian](link)
 
 ---
 
