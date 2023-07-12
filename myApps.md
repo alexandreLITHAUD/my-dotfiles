@@ -21,6 +21,7 @@
 - [micro](link)
 - [vscode](link)
 - [obsidian](link)
+- [asciinema](link)
 
 ---
 
