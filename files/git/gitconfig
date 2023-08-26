@@ -1,23 +1,20 @@
 [user]
-
+	# UNIV ACCOUT GRICAD GITLAB
+	#email = alexandre.lithaud@etu.univ-grenoble-alpes.fr
+	# PERSONAL GITLAB ACCOUNT
 	email = alexandre.ltd71@gmail.com
+	
 	name = Alexandre Lithaud
-
 [alias]
-
+	ci = commit
+	co = checkout
 	st = status
 	tlog = log --oneline --graph
-
 [merge]
-
-	tool = meld
-
+    	tool = meld
 [diff]
-
-	tool = meld
-
+    	tool = meld	
 [init]
-
 	defaultBranch = main
-[safe]
-	directory = /etc/nixos
+[core]
+	editor = micro
