@@ -77,6 +77,8 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions jump sudo colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
@@ -115,8 +117,14 @@ alias f="fzf"
 alias cat="batcat --paging=never --style='plain'"
 alias nano="micro"
 alias n="nano"
+alias change_wallpaper="/home/alex/Documents/dev/OtherProjects/wallpaperModifier/change_wallpaper.sh"
+alias sh-rem="~/Documents/dev/OtherProjects/sh-rem/sh-rem.sh"
+
+alias tjavainit='valu=$(pwd) && cd ~/AgileLearning/workshops/oop && source setenv.sh && cd $valu'
 
 bindkey '^ ' autosuggest-accept
 source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+~/Documents/dev/OtherProjects/sh-rem/sh-rem.sh list 
 
 export EDITOR='micro'
