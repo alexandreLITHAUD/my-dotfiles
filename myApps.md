@@ -10,7 +10,7 @@
   - syntax-color
   - colored-man page
   - google
-- [ranger](link)
+  - thefuck
 - [fzf](link)
 - [git](link)
 - [tig](link)
@@ -21,7 +21,18 @@
 - [micro](link)
 - [vscode](link)
 - [obsidian](link)
-- [asciinema](link)
+- python
+- docker
+- (overleaf)
+- firefox
+- discord
+- spotify
+- warp
+- steam
+- syncthings
+- virtualbox
+- librefoffice
+- etcher
 
 ---
 
