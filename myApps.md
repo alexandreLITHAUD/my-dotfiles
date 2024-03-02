@@ -33,7 +33,9 @@
 - virtualbox
 - librefoffice
 - etcher
-
+- gimp
+- minecraft
+- htop
 ---
 
 ## Installation
