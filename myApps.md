@@ -36,6 +36,7 @@
 - gimp
 - minecraft
 - htop
+- deja dup
 ---
 
 ## Installation
