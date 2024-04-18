@@ -42,3 +42,15 @@
 ## Installation
 
 - lorem
+
+
+---
+
+## Distros
+
+- Ubuntu
+- Mint
+- NixOS
+- Windows
+- Arch
+- Manjaro
