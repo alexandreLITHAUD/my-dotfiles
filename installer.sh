@@ -85,7 +85,7 @@ install_dependencies() {
     esac
 }
 
-download_tools() {
+install_tools() {
     log "Downloading additional tools..."
     
     # Define tools array
