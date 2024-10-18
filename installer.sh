@@ -135,11 +135,12 @@ install_tools() {
                         ;;
                     "jump")
                         if ! command -v jump &> /dev/null; then
-                            sudo apt-get install build-essential
+                            sudo apt-get install -y build-essential golang
                             git clone https://github.com/gsamokovarov/jump.git /tmp/jump
                             cd /tmp/jump
                             make
-                            sudo make install
+                            sudo chmod +x /tmp/jump/jump
+                            sudo mv /tmp/jump/jump /usr/local/bin
                             cd -
                         fi
                         ;;
