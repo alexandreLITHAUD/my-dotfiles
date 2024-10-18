@@ -1,6 +1,3 @@
-[user]
-	email = alexandre.ltd71@gmail.com
-	name = Alexandre Lithaud
 [alias]
 	ci = commit
 	co = checkout

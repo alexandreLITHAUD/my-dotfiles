@@ -26,6 +26,7 @@ micro
 wget
 curl
 bat
+jump
 
 ### MISCELLANEOUS  ###
 deja-dup

@@ -83,6 +83,124 @@ install_dependencies() {
     esac
 }
 
+download_tools() {
+    log "Downloading additional tools..."
+    
+    # Define tools array
+    local tools=("gpg" "age" "sops" "tig" "meld" "micro" "wget" "curl" "bat" "jump" "htop" "tree")
+    
+    case $OS in
+        "macOS")
+            # Install Homebrew if not present
+            if ! command -v brew &> /dev/null; then
+                log "Installing Homebrew..."
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            fi
+            
+            # Install CLI tools
+            for tool in "${tools[@]}"; do
+                if ! command -v $tool &> /dev/null; then
+                    case $tool in
+                        "gpg") brew install gnupg ;;
+                        "bat") brew install bat ;;
+                        "jump") brew install jump ;;
+                        *) brew install $tool ;;
+                    esac
+                fi
+            done
+            ;;
+            
+        "Ubuntu"|"Debian"|"Linux Mint")
+            # Add required repositories
+            sudo apt-get update
+            
+            # Install tools
+            for tool in "${tools[@]}"; do
+                case $tool in
+                    "sops")
+                        if ! command -v sops &> /dev/null; then
+                            local sops_version="v3.7.3"
+                            wget https://github.com/mozilla/sops/releases/download/${sops_version}/sops-${sops_version}.linux.amd64
+                            chmod +x sops-${sops_version}.linux.amd64
+                            sudo mv sops-${sops_version}.linux.amd64 /usr/local/bin/sops
+                        fi
+                        ;;
+                    "bat")
+                        sudo apt-get install -y batcat
+                        # Create bat alias if it doesn't exist
+                        if ! command -v bat &> /dev/null; then
+                            sudo ln -s /usr/bin/batcat /usr/local/bin/bat
+                        fi
+                        ;;
+                    "micro")
+                        if ! command -v micro &> /dev/null; then
+                            curl https://getmic.ro | bash
+                            sudo mv micro /usr/local/bin/
+                        fi
+                        ;;
+                    "jump")
+                        if ! command -v jump &> /dev/null; then
+                            sudo apt-get install build-essential
+                            git clone https://github.com/gsamokovarov/jump.git /tmp/jump
+                            cd /tmp/jump
+                            make
+                            sudo make install
+                            cd -
+                        fi
+                        ;;
+                    *)
+                        sudo apt-get install -y $tool
+                        ;;
+                esac
+            done
+            ;;
+            
+        "Fedora")
+            # Enable required repositories
+            sudo dnf install -y dnf-plugins-core
+            
+            for tool in "${tools[@]}"; do
+                case $tool in
+                    "age")
+                        if ! command -v age &> /dev/null; then
+                            sudo dnf copr enable -y FiloSottile/age
+                            sudo dnf install -y age
+                        fi
+                        ;;
+                    "sops")
+                        if ! command -v sops &> /dev/null; then
+                            sudo dnf install -y sops
+                        fi
+                        ;;
+                    "bat")
+                        sudo dnf install -y bat
+                        ;;
+                    *)
+                        sudo dnf install -y $tool
+                        ;;
+                esac
+            done
+            ;;
+            
+        "Arch Linux")
+            for tool in "${tools[@]}"; do
+                case $tool in
+                    "bat") sudo pacman -S --noconfirm bat ;;
+                    "gpg") sudo pacman -S --noconfirm gnupg ;;
+                    *) sudo pacman -S --noconfirm $tool ;;
+                esac
+            done
+            ;;
+            
+        *)
+            error "Unsupported OS for automatic tool installation"
+            exit 1
+            ;;
+    esac
+    
+    log "Tools installation completed!"
+}
+
 # Create SSH key
 setup_ssh() {
     if [ ! -f ~/.ssh/id_ed25519 ]; then
@@ -164,6 +282,7 @@ main() {
     
     detect_os
     install_dependencies
+    install_tools
     setup_ssh
     setup_git
     setup_zsh
