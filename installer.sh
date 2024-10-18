@@ -30,6 +30,8 @@ detect_os() {
         OS="macOS"
     else
         OS="Unknown"
+        error "Unsupported OS: $OS"
+        exit 1
     fi
     log "Detected OS: $OS"
 }
