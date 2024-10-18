@@ -127,13 +127,6 @@ install_tools() {
                             sudo mv sops-${sops_version}.linux.amd64 /usr/local/bin/sops
                         fi
                         ;;
-                    "bat")
-                        sudo apt-get install -y batcat
-                        # Create bat alias if it doesn't exist
-                        if ! command -v bat &> /dev/null; then
-                            sudo ln -s /usr/bin/batcat /usr/local/bin/bat
-                        fi
-                        ;;
                     "micro")
                         if ! command -v micro &> /dev/null; then
                             curl https://getmic.ro | bash
