@@ -1,0 +1,25 @@
+# Useful aliases
+
+# ZSH
+alias zshconfig="micro ~/.zshrc"
+alias zshconfig_reload="source ~/.zshrc"
+alias zshaliases="micro ~/.zsh_aliases"
+alias ohmyzsh="micro ~/.oh-my-zsh"
+
+# BASH
+alias ll="ls -la"
+alias lla="ls -Al"
+alias ..="cd .."
+alias ...="cd ../.."
+alias cat="batcat"
+
+# DEVOPS
+alias k="kubectl"
+alias kga="kubectl get all"
+alias d="docker"
+alias docker_remove_dangling="docker images -f 'dangling=true' -q | xargs -r docker rmi 2>/dev/null || true"
+
+# MARK
+alias m="mark"
+alias j="jump"
+alias mls="marks"

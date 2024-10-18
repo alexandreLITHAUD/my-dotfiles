@@ -1,0 +1,34 @@
+### APPS ###
+vscode
+firefox
+discord
+spotify
+obsidian
+libreoffice
+etcher
+
+### DEVOPS ###
+docker
+kubernetes
+helm
+helmfile
+
+### TOOLS ###
+zsh
+tmux
+gpg
+age
+sops
+git
+tig
+meld
+micro
+wget
+curl
+bat
+
+### MISCELLANEOUS  ###
+deja-dup
+htop
+tree
+
