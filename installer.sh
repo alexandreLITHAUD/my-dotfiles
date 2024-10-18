@@ -252,9 +252,9 @@ setup_zsh() {
     cp files/zsh/zsh_aliases ~/.zsh_aliases
     
     # Set Zsh as default shell
-    if [ "$SHELL" != "$(which zsh)" ]; then
-        chsh -s "$(which zsh)"
-    fi
+    # if [ "$SHELL" != "$(which zsh)" ]; then
+    #     chsh -s "$(which zsh)"
+    # fi
 
     log "Fir Linux users if the default shell is not changed. Please use this command : sudo sh -c 'echo $(which zsh) >> /etc/shells'"
 }
