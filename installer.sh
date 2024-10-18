@@ -89,7 +89,7 @@ install_tools() {
     log "Downloading additional tools..."
     
     # Define tools array
-    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree")
+    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree" "fzf")
     
     case $OS in
         "macOS")
