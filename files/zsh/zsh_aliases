@@ -18,6 +18,7 @@ alias k="kubectl"
 alias kga="kubectl get all"
 alias d="docker"
 alias docker_remove_dangling="docker images -f 'dangling=true' -q | xargs -r docker rmi 2>/dev/null || true"
+alias docker_remove_all_containers="docker ps -aq | xargs docker rm -f"
 
 # MARK
 alias m="mark"
