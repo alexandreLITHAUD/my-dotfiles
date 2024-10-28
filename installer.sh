@@ -151,7 +151,7 @@ install_tools() {
             done
             ;;
             
-        "Fedora")
+        "Fedora"|"CentOS Linux")
             # Enable required repositories
             sudo dnf install -y dnf-plugins-core
             
