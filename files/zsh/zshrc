@@ -80,6 +80,7 @@ plugins=(
     jump
     fzf
     colored-man-pages
+    sudo
 )
 
 source $ZSH/oh-my-zsh.sh
