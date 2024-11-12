@@ -45,22 +45,12 @@ install_dependencies() {
         "macOS")
             if ! command -v brew &> /dev/null; then
                 log "Installing Homebrew..."
-
-                if [ $VERBOSE -eq 1 ]; then
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-                else
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null 2>&1
-                fi
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             fi
             for package in "${packages[@]}"; do
                 if ! command -v $package &> /dev/null; then
                     log "Installing $package..."
-
-                    if [ $VERBOSE -eq 1 ]; then
-                        brew install $package
-                    else
-                        brew install $package > /dev/null 2>&1
-                    fi
+                    brew install $package
                 fi
             done
             ;;
@@ -69,12 +59,7 @@ install_dependencies() {
             for package in "${packages[@]}"; do
                 if ! command -v $package &> /dev/null; then
                     log "Installing $package..."
-
-                    if [ $VERBOSE -eq 1 ]; then
-                        sudo apt-get install -y $package
-                    else
-                        sudo apt-get install -y $package > /dev/null 2>&1
-                    fi
+                    sudo apt-get install -y $package
                 fi
             done
             ;;
@@ -82,12 +67,7 @@ install_dependencies() {
             for package in "${packages[@]}"; do
                 if ! command -v $package &> /dev/null; then
                     log "Installing $package..."
-
-                    if [ $VERBOSE -eq 1 ]; then
-                        sudo dnf install -y $package
-                    else
-                        sudo dnf install -y $package > /dev/null 2>&1
-                    fi
+                    sudo dnf install -y $package
                 fi
             done
             ;;
@@ -95,12 +75,7 @@ install_dependencies() {
             for package in "${packages[@]}"; do
                 if ! command -v $package &> /dev/null; then
                     log "Installing $package..."
-
-                    if [ $VERBOSE -eq 1 ]; then
-                        sudo pacman -S --noconfirm $package
-                    else
-                        sudo pacman -S --noconfirm $package > /dev/null 2>&1
-                    fi
+                    sudo pacman -S --noconfirm $package
                 fi
             done
             ;;
@@ -122,34 +97,18 @@ install_tools() {
             # Install Homebrew if not present
             if ! command -v brew &> /dev/null; then
                 log "Installing Homebrew..."
-
-                if [ $VERBOSE -eq 1 ]; then
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-                else
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null 2>&1
-                fi
-                
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             fi
             
             # Install CLI tools
             for tool in "${tools[@]}"; do
-                if ! command -v $tool &> /dev/null; then
-                    
-                    if [ $VERBOSE -eq 1 ]; then
-                        case $tool in
-                            "gpg") brew install gnupg ;;
-                            "bat") brew install bat ;;
-                            "jump") brew install jump ;;
-                            *) brew install $tool ;;
-                        esac
-                    else
-                        case $tool in
-                            "gpg") brew install gnupg > /dev/null 2>&1 ;;
-                            "bat") brew install bat > /dev/null 2>&1 ;;
-                            "jump") brew install jump > /dev/null 2>&1 ;;
-                            *) brew install $tool > /dev/null 2>&1 ;;
-                        esac
-                    fi
+                if ! command -v $tool &> /dev/null; then     
+                    case $tool in
+                        "gpg") brew install gnupg ;;
+                        "bat") brew install bat ;;
+                        "jump") brew install jump ;;
+                        *) brew install $tool ;;
+                    esac
                 fi
             done
             ;;
@@ -164,58 +123,30 @@ install_tools() {
                     "sops")
                         if ! command -v sops &> /dev/null; then
                             local sops_version="v3.7.3"
-
-                            if [ $VERBOSE -eq 1 ]; then
-                                wget https://github.com/mozilla/sops/releases/download/${sops_version}/sops-${sops_version}.linux.amd64
-                                chmod +x sops-${sops_version}.linux.amd64
-                                sudo mv sops-${sops_version}.linux.amd64 /usr/local/bin/sops
-                            else
-                                wget https://github.com/mozilla/sops/releases/download/${sops_version}/sops-${sops_version}.linux.amd64 > /dev/null 2>&1
-                                chmod +x sops-${sops_version}.linux.amd64 > /dev/null 2>&1
-                                sudo mv sops-${sops_version}.linux.amd64 /usr/local/bin/sops > /dev/null 2>&1
-                            fi
+                            wget https://github.com/mozilla/sops/releases/download/${sops_version}/sops-${sops_version}.linux.amd64
+                            chmod +x sops-${sops_version}.linux.amd64
+                            sudo mv sops-${sops_version}.linux.amd64 /usr/local/bin/sops
                         fi
                         ;;
                     "micro")
                         if ! command -v micro &> /dev/null; then
-
-                            if [ $VERBOSE -eq 1 ]; then
-                                curl https://getmic.ro | bash
-                                sudo mv micro /usr/local/bin/
-                            else
-                                curl https://getmic.ro | bash > /dev/null 2>&1
-                                sudo mv micro /usr/local/bin/ > /dev/null 2>&1
-                            fi
+                            curl https://getmic.ro | bash
+                            sudo mv micro /usr/local/bin/
                         fi
                         ;;
                     "jump")
                         if ! command -v jump &> /dev/null; then
-
-                            if [ $VERBOSE -eq 1 ]; then
-                                sudo apt-get install -y build-essential golang
-                                git clone https://github.com/gsamokovarov/jump.git /tmp/jump
-                                cd /tmp/jump
-                                make
-                                sudo chmod +x /tmp/jump/jump
-                                sudo mv /tmp/jump/jump /usr/local/bin
-                                cd -
-                            else
-                                sudo apt-get install -y build-essential golang > /dev/null 2>&1
-                                git clone https://github.com/gsamokovarov/jump.git /tmp/jump > /dev/null 2>&1
-                                cd /tmp/jump > /dev/null 2>&1
-                                make > /dev/null 2>&1
-                                sudo chmod +x /tmp/jump/jump > /dev/null 2>&1
-                                sudo mv /tmp/jump/jump /usr/local/bin > /dev/null 2>&1
-                                cd - > /dev/null 2>&1
-                            fi
+                            sudo apt-get install -y build-essential golang
+                            git clone https://github.com/gsamokovarov/jump.git /tmp/jump
+                            cd /tmp/jump
+                            make
+                            sudo chmod +x /tmp/jump/jump
+                            sudo mv /tmp/jump/jump /usr/local/bin
+                            cd -
                         fi
                         ;;
                     *)
-                        if [ $VERBOSE -eq 1 ]; then
-                            sudo apt-get install -y $tool
-                        else
-                            sudo apt-get install -y $tool > /dev/null 2>&1
-                        fi
+                        sudo apt-get install -y $tool
                         ;;
                 esac
             done
@@ -229,39 +160,20 @@ install_tools() {
                 case $tool in
                     "age")
                         if ! command -v age &> /dev/null; then
-
-                            if [ $VERBOSE -eq 1 ]; then
-                                sudo dnf copr enable -y FiloSottile/age
-                                sudo dnf install -y age
-                            else
-                                sudo dnf copr enable -y FiloSottile/age > /dev/null 2>&1
-                                sudo dnf install -y age > /dev/null 2>&1
-                            fi
+                            sudo dnf copr enable -y FiloSottile/age
+                            sudo dnf install -y age
                         fi
                         ;;
                     "sops")
                         if ! command -v sops &> /dev/null; then
-
-                            if [ $VERBOSE -eq 1 ]; then
-                                sudo dnf install -y sops
-                            else
-                                sudo dnf install -y sops > /dev/null 2>&1
-                            fi
+                            sudo dnf install -y sops
                         fi
                         ;;
                     "bat")
-                        if [ $VERBOSE -eq 1 ]; then
-                            sudo dnf install -y bat
-                        else
-                            sudo dnf install -y bat > /dev/null 2>&1
-                        fi
+                        sudo dnf install -y bat
                         ;;
                     *)
-                        if [ $VERBOSE -eq 1 ]; then
-                            sudo dnf install -y $tool
-                        else
-                            sudo dnf install -y $tool > /dev/null 2>&1
-                        fi
+                        sudo dnf install -y $tool
                         ;;
                 esac
             done
@@ -269,20 +181,11 @@ install_tools() {
             
         "Arch Linux")
             for tool in "${tools[@]}"; do
-
-                if [ $VERBOSE -eq 1 ]; then
-                    case $tool in
-                        "bat") sudo pacman -S --noconfirm bat ;;
-                        "gpg") sudo pacman -S --noconfirm gnupg ;;
-                        *) sudo pacman -S --noconfirm $tool ;;
-                    esac
-                else
-                    case $tool in
-                        "bat") sudo pacman -S --noconfirm bat > /dev/null 2>&1 ;;
-                        "gpg") sudo pacman -S --noconfirm gnupg > /dev/null 2>&1 ;;
-                        *) sudo pacman -S --noconfirm $tool > /dev/null 2>&1 ;;
-                    esac
-                fi
+                case $tool in
+                    "bat") sudo pacman -S --noconfirm bat ;;
+                    "gpg") sudo pacman -S --noconfirm gnupg ;;
+                    *) sudo pacman -S --noconfirm $tool ;;
+                esac
             done
             ;;
             
@@ -351,21 +254,11 @@ setup_zsh() {
     
     # Install Oh My Zsh if not present
     if [ ! -d ~/.oh-my-zsh ]; then
-
-        if [ $VERBOSE -eq 1 ]; then
-            sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-        else
-            sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1
-        fi
+        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     fi
     
-    if [ $VERBOSE -eq 1 ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    else
-        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions > /dev/null 2>&1
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting > /dev/null 2>&1
-    fi
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
     # Backup existing configs
     [ -f ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.backup
@@ -391,11 +284,7 @@ setup_tmux() {
     
     # Install Tmux Plugin Manager
     if [ ! -d ~/.tmux/plugins/tpm ]; then
-        if [ $VERBOSE -eq 1]; then
-            git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        else
-            git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null 2>&1
-        fi
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         log "Install Tmux plugins by pressing prefix + I (capital I) after starting Tmux"
     fi
 }
@@ -403,18 +292,15 @@ setup_tmux() {
 # Main installation function
 main() {
 
-    VERBOSE=0
     SSH_EMAIL=""
     GIT_EMAIL=""
     GIT_USERNAME=""
 
-    while getopts "h?vs:g:u:" opt; do
+    while getopts "h?s:g:u:" opt; do
         case "$opt" in
         h|\?)
             echo "Usage: $0 [-v] [-s ssh email] [-g git email] [-u git username]"
             exit 0
-            ;;
-        v)  VERBOSE=1
             ;;
         s)  SSH_EMAIL=$OPTARG
             ;;
