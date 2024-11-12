@@ -45,7 +45,12 @@ install_dependencies() {
         "macOS")
             if ! command -v brew &> /dev/null; then
                 log "Installing Homebrew..."
-                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+                if [ $VERBOSE -eq 1 ]; then
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                else
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null 2>&1
+                fi
             fi
             for package in "${packages[@]}"; do
                 if ! command -v $package &> /dev/null; then
