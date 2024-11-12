@@ -40,4 +40,4 @@ RUN git clone https://github.com/alexandreLITHAUD/my-dotfiles.git
 
 WORKDIR /home/$USERNAME/my-dotfiles
 
-RUN bash ./installer.sh -s $SSH_EMAIL -g $GIT_EMAIL -u $GIT_USERNAME
+# RUN bash ./installer.sh -s $SSH_EMAIL -g $GIT_EMAIL -u $GIT_USERNAME

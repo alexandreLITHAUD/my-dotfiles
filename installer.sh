@@ -297,16 +297,16 @@ main() {
     unset GIT_USERNAME
 
     while getopts "h?s:g:u:" opt; do
-        case "$opt" in
+        case ${opt} in
         h|\?)
             echo "Usage: $0 [-v] [-s ssh email] [-g git email] [-u git username]"
             exit 0
             ;;
-        s)  SSH_EMAIL=$OPTARG
+        s)  SSH_EMAIL=${OPTARG}
             ;;
-        g)  GIT_EMAIL=$OPTARG
+        g)  GIT_EMAIL=${OPTARG}
             ;;
-        u)  GIT_USERNAME=$OPTARG
+        u)  GIT_USERNAME=${OPTARG}
             ;;
         esac
     done
