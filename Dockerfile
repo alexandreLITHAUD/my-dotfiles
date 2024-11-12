@@ -7,10 +7,14 @@ ARG GIT_USERNAME=alexandre_lithaud
 ARG SSH_EMAIL=alexandre.ltd71@gmail.com
 
 # Change TY for Docker
-ENV TY=Europe/Paris
+ENV TZ=Europe/Paris
+RUN echo "tzdata tzdata/Areas select Europe" | debconf-set-selections
+RUN echo "tzdata tzdata/Zones/Europe select Paris" | debconf-set-selections
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Remove unwanted interactive promts
 ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN=true
 
 # Install required packages
 RUN apt-get update && apt-get install -y \

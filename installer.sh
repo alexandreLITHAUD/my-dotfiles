@@ -202,7 +202,7 @@ install_tools() {
 setup_ssh() {
     if [ ! -f ~/.ssh/id_ed25519 ]; then
         log "Generating SSH key..."
-        if [ ! -z  "$SSH_EMAIL" ]; then
+        if [ -n "$SSH_EMAIL" ]; then
             email=$SSH_EMAIL
         else
             read -p "Enter your email for SSH key: " email
@@ -229,13 +229,13 @@ setup_git() {
     if [ ! -f ~/.gitconfig ]; then
         cp files/git/gitconfig ~/.gitconfig
 
-        if [ ! -z "$GIT_EMAIL" ]; then
+        if [ -n "$GIT_EMAIL" ]; then
             git_email=$GIT_EMAIL
         else
             read -p "Enter your Git email: " git_email
         fi
 
-        if [ ! -z "$GIT_USERNAME" ]; then
+        if [ -n "$GIT_USERNAME" ]; then
             git_username=$GIT_USERNAME
         else
             read -p "Enter your Git username: " git_username
@@ -292,9 +292,9 @@ setup_tmux() {
 # Main installation function
 main() {
 
-    SSH_EMAIL=""
-    GIT_EMAIL=""
-    GIT_USERNAME=""
+    unset SSH_EMAIL
+    unset GIT_EMAIL
+    unset GIT_USERNAME
 
     while getopts "h?s:g:u:" opt; do
         case "$opt" in
@@ -310,6 +310,10 @@ main() {
             ;;
         esac
     done
+
+    log "SSH_EMAIL: $SSH_EMAIL"
+    log "GIT_EMAIL: $GIT_EMAIL"
+    log "GIT_USERNAME: $GIT_USERNAME"
 
     log "Starting installation..."
     
