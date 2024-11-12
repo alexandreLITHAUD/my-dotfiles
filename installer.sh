@@ -117,7 +117,13 @@ install_tools() {
             # Install Homebrew if not present
             if ! command -v brew &> /dev/null; then
                 log "Installing Homebrew..."
-                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+                if [ $VERBOSE -eq 1 ]; then
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                else
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null 2>&1
+                fi
+                
             fi
             
             # Install CLI tools
@@ -136,7 +142,7 @@ install_tools() {
                             "gpg") brew install gnupg > /dev/null 2>&1 ;;
                             "bat") brew install bat > /dev/null 2>&1 ;;
                             "jump") brew install jump > /dev/null 2>&1 ;;
-                            *) brew install $tool ;;
+                            *) brew install $tool > /dev/null 2>&1 ;;
                         esac
                     fi
                 fi
