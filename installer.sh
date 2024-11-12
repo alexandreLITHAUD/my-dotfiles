@@ -281,7 +281,8 @@ install_tools() {
                         "bat") sudo pacman -S --noconfirm bat > /dev/null 2>&1 ;;
                         "gpg") sudo pacman -S --noconfirm gnupg > /dev/null 2>&1 ;;
                         *) sudo pacman -S --noconfirm $tool > /dev/null 2>&1 ;;
-                    esac 
+                    esac
+                fi
             done
             ;;
             
