@@ -1,12 +1,13 @@
 #!/bin/bash
 
-set -e  # Exit on error
-
+VERBOSE=0
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
+
+set -e  # Exit on error
 
 # Logger function
 log() {
@@ -274,6 +275,24 @@ setup_tmux() {
 
 # Main installation function
 main() {
+
+    while getopts "h?vs:g:u:" opt; do
+        case "$opt" in
+        h|\?)
+            echo "Usage: $0 [-v] [-s ssh email] [-g git email] [-u git username]"
+            exit 0
+            ;;
+        v)  verbose=1
+            ;;
+        s)  ssh_email=$OPTARG
+            ;;
+        g)  git_email=$OPTARG
+            ;;
+        u)  git_username=$OPTARG
+            ;;
+        esac
+    done
+
     log "Starting installation..."
     
     detect_os
