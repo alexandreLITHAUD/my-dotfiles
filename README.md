@@ -1,7 +1,10 @@
 # PERSONAL CONFIGURATION
 
-This repo store and enable to easily install my conf on multiple systems
+This repo stores the dotfiles for zsh, git and tmux. If you want to install my configuration just use the install.sh script. It works for Ubuntu, Mint, Debian, MacOS, Fedora, Centos and Arch.
 
+You can also use the dockerfile to create a ubuntu container with all my configuration. 
+
+>> Here is the project architecture
 ```
 .
 ├── README.md
@@ -16,3 +19,5 @@ This repo store and enable to easily install my conf on multiple systems
 │       └── zshrc
 └── installer.sh
 ```
+
+You can pull my docker container using this command : `docker push alexandrelithaud/personal_ubuntu_conf:latest`
