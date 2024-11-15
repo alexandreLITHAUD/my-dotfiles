@@ -20,4 +20,4 @@ You can also use the dockerfile to create a ubuntu container with all my configu
 └── installer.sh
 ```
 
-You can pull my docker container using this command : `docker push alexandrelithaud/personal_ubuntu_conf:latest`
+You can pull my docker container using this command : `docker pull alexandrelithaud/personal_ubuntu_conf:latest`
