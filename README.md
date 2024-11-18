@@ -1,5 +1,7 @@
 # PERSONAL CONFIGURATION
 
+![Docker Workflow Status](https://github.com/alexandreLITHAUD/my-dotfiles/actions/workflows/docker-build-push-on-release.yaml/badge.svg)
+
 This repo stores the dotfiles for zsh, git and tmux. If you want to install my configuration just use the install.sh script. It works for Ubuntu, Mint, Debian, MacOS, Fedora, Centos and Arch.
 
 You can also use the dockerfile to create a ubuntu container with all my configuration. 
