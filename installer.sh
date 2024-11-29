@@ -90,7 +90,7 @@ install_tools() {
     log "Downloading additional tools..."
     
     # Define tools array
-    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree" "fzf")
+    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree" "fzf" "kubectl" "kubeswitch" "helm")
     
     case $OS in
         "macOS")
@@ -107,6 +107,7 @@ install_tools() {
                         "gpg") brew install gnupg ;;
                         "bat") brew install bat ;;
                         "jump") brew install jump ;;
+                        "kubeswitch") brew install danielfoehrkn/switch/switch ;;
                         *) brew install $tool ;;
                     esac
                 fi
@@ -145,6 +146,35 @@ install_tools() {
                             cd -
                         fi
                         ;;
+                    "kubectl")
+                        if ! command -v kubectl &> /dev/null; then
+                            sudo apt-get update
+                            # apt-transport-https may be a dummy package; if so, you can skip that package
+                            sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+                            sudo mkdir -p /etc/apt/keyrings
+                            curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+                            sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
+                            echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+                            sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # helps tools such as command-not-found to work correctly
+                            sudo apt-get update
+                            sudo apt-get install -y kubectl
+                        fi
+                        ;;
+                    "kubeswitch")
+                        if ! command -v switcher &> /dev/null; then
+                            sudo curl -L -o /usr/local/bin/switcher https://github.com/danielfoehrKn/kubeswitch/releases/download/0.8.0/switcher_linux_amd64
+                            sudo chmod +x /usr/local/bin/switcher
+                        fi
+                        ;;
+                    "helm")
+                        if ! command -v helm &> /dev/null; then
+                            sudo curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+                            sudo apt-get install apt-transport-https --yes
+                            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+                            sudo apt-get update
+                            sudo apt-get install helm
+                        fi
+                        ;;
                     *)
                         sudo apt-get install -y $tool
                         ;;
@@ -172,6 +202,16 @@ install_tools() {
                     "bat")
                         sudo dnf install -y bat
                         ;;
+                    "kubectl")
+                        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+                        ;;
+                    "kubeswitch")
+                        if ! command -v switcher &> /dev/null; then
+                            sudo curl -L -o /usr/local/bin/switcher https://github.com/danielfoehrKn/kubeswitch/releases/download/0.8.0/switcher_linux_amd64
+                            sudo chmod +x /usr/local/bin/switcher
+                        fi
+                        ;;
                     *)
                         sudo dnf install -y $tool
                         ;;
@@ -184,6 +224,10 @@ install_tools() {
                 case $tool in
                     "bat") sudo pacman -S --noconfirm bat ;;
                     "gpg") sudo pacman -S --noconfirm gnupg ;;
+                    "kubeswitch")
+                        sudo curl -L -o /usr/local/bin/switcher https://github.com/danielfoehrKn/kubeswitch/releases/download/0.8.0/switcher_linux_amd64
+                        sudo chmod +x /usr/local/bin/switcher
+                        ;;
                     *) sudo pacman -S --noconfirm $tool ;;
                 esac
             done
