@@ -309,7 +309,7 @@ setup_zsh() {
     [ -f ~/.zsh_aliases ] && mv ~/.zsh_aliases ~/.zsh_aliases.backup
 
     # Copy Custom theme
-    cp files/zsh/robbyrussell-custom.zsh-theme ~/.oh-my-zsh/custom/theme/robbyrussell-custom.zsh-theme
+    cp files/zsh/robbyrussell-custom.zsh-theme ~/.oh-my-zsh/custom/themes/robbyrussell-custom.zsh-theme
     
     # Copy new configs
     cp files/zsh/zshrc ~/.zshrc
