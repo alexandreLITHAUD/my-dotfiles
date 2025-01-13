@@ -90,7 +90,7 @@ install_tools() {
     log "Downloading additional tools..."
     
     # Define tools array
-    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree" "fzf" "kubectl" "kubeswitch" "helm")
+    local tools=("wget" "curl" "gpg" "age" "sops" "tig" "meld" "micro" "bat" "jump" "htop" "tree" "fzf" "kubectl" "kubeswitch" "helm" "git-delta")
     
     case $OS in
         "macOS")
@@ -175,6 +175,13 @@ install_tools() {
                             sudo apt-get install helm
                         fi
                         ;;
+                    "git-delta")
+                        if ! command -v delta &> /dev/null; then
+                            VERSION="0.18.2"
+                            wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_${VERSION}_amd64.deb
+                            sudo dpkg -i git-delta_${VERSION}_amd64.deb
+                        fi
+                        ;;
                     *)
                         sudo apt-get install -y $tool
                         ;;
@@ -210,6 +217,19 @@ install_tools() {
                         if ! command -v switcher &> /dev/null; then
                             sudo curl -L -o /usr/local/bin/switcher https://github.com/danielfoehrKn/kubeswitch/releases/download/0.8.0/switcher_linux_amd64
                             sudo chmod +x /usr/local/bin/switcher
+                        fi
+                        ;;
+                    "git-delta")
+                        if ! command -v delta &> /dev/null; then
+                            VERSION="0.18.2"
+                            wget https://github.com/dandavison/delta/releases/download/0.16.5/delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz         
+                            # Extract it
+                            tar xzvf delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz                      
+                            # Move the binary to a directory in your PATH
+                            sudo mv delta-${VERSION}-x86_64-unknown-linux-gnu/delta /usr/local/bin/
+                            sudo chmod +x /usr/local/bin/delta
+                            # Clean up the downloaded files
+                            rm -rf delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz delta-${VERSION}-x86_64-unknown-linux-gnu/
                         fi
                         ;;
                     *)
