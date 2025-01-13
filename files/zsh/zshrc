@@ -107,6 +107,11 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
 
+# Ctrl + right for forward word
+bindkey "^[[1;5C" forward-word
+# Ctrl + left for backward-word
+bindkey "^[[1;5D" backward-word
+
 # Zsh Config
 HISTSIZE=10000
 SAVEHIST=10000
