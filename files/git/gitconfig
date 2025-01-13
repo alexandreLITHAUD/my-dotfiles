@@ -3,11 +3,32 @@
 	co = checkout
 	st = status
 	tlog = log --oneline --graph
+
 [merge]
-    	tool = meld
+    	tool = vimdiff
+
 [diff]
-    	tool = meld	
+    	tool = vimdiff
+
 [init]
 	defaultBranch = main
+
 [core]
 	editor = micro
+	pager = delta
+
+[user]
+	name = Alexandre Lithaud
+	email = alexandre.lithaud@non.se.com
+
+[commit]
+	gpgsign = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	side-by-side = true
+	line-numbers = true
