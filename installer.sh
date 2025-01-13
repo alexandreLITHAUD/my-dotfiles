@@ -178,7 +178,7 @@ install_tools() {
                     "git-delta")
                         if ! command -v delta &> /dev/null; then
                             VERSION="0.18.2"
-                            wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_${VERSION}_amd64.deb
+                            wget https://github.com/dandavison/delta/releases/download/${VERSION}/git-delta_${VERSION}_amd64.deb
                             sudo dpkg -i git-delta_${VERSION}_amd64.deb
                         fi
                         ;;
@@ -222,7 +222,7 @@ install_tools() {
                     "git-delta")
                         if ! command -v delta &> /dev/null; then
                             VERSION="0.18.2"
-                            wget https://github.com/dandavison/delta/releases/download/0.16.5/delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz         
+                            wget https://github.com/dandavison/delta/releases/download/${VERSION}/delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz         
                             # Extract it
                             tar xzvf delta-${VERSION}-x86_64-unknown-linux-gnu.tar.gz                      
                             # Move the binary to a directory in your PATH
