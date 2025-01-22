@@ -12,7 +12,7 @@ alias ...="cd ../.."
 alias cat="batcat"
 alias free="free -h"
 alias grep="grep --color=auto"
-alias diff="diff --color=auto"
+alias diff="diff -y --color=auto --suppress-common-lines"
 
 # Development
 alias g="git"
