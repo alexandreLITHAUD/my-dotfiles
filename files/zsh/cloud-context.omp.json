@@ -1,0 +1,186 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 3,
+  "console_title_template": "{{ if or .Root .Segments.Git.RepoName }}[ {{ if .Root }}Admin{{ end }}{{ if and .Root .Segments.Git.RepoName }}@{{ end }}{{ if .Segments.Git.RepoName }}{{ .Segments.Git.RepoName }}{{ end }} ]{{ end }} {{ .Folder }}",
+  "palette": {
+    "background-color": "#272727",
+    "cloud-text-amazon": "#4285F4",
+    "cloud-text-azure": "#4285F4",
+    "cloud-text-gcp": "#4285F4",
+    "cloud-text-firebase": "#ff6e40",
+    "error-background": "#dd0033",
+    "error-text": "#242424",
+    "git-text": "#F39E60",
+    "kubernetes-text": "#FFBB00",
+    "talosctl-text": "#FF6C00",
+    "symbol-color": "#E4E0E1",
+    "timer-text": "#E16A54"
+  },
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": false,
+      "segments": [
+        {
+          "background": "p:background-color",
+          "foreground": "p:symbol-color",
+          "leading_diamond": "\u256d\u2500\ue0b2",
+          "style": "diamond",
+          "template": "\ueb99 {{.UserName}}",
+          "type": "text"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:timer-text",
+          "style": "powerline",
+          "template": " at {{.Icon}} \ue0b1",
+          "type": "os"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:talosctl-text",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "template": "<p:symbol-color>\udb84\udcfe</> {{.Context}}",
+          "type": "talosctl"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:cloud-text-amazon",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "template": " <p:symbol-color>\uf270</> {{.Profile}}{{if .Region}} \uf061 {{.Region}}{{end}}",
+          "type": "aws"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:cloud-text-azure",
+          "properties": {
+            "source": "pwsh"
+          },
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "template": " <p:symbol-color>\uebd8</> (PS) {{ .Name }}",
+          "type": "az"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:cloud-text-gcp",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "template": " <p:symbol-color>\ue7b2</> {{ .Project }}",
+          "type": "gcp"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:cloud-text-firebase",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "template": " <p:symbol-color>\udb82\udd67</> {{ .Project }}",
+          "type": "firebase"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:timer-text",
+          "properties": {
+            "folder_separator_icon": " <#000000>\ue0bd </>",
+            "home_icon": "\ueb06",
+            "style": "full"
+          },
+          "style": "diamond",
+          "trailing_diamond": "\ue0b4 ",
+          "template": " \ue5fe {{ .Path}} <#000000>\ue0bd</>",
+          "type": "path"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:git-text",
+          "style": "powerline",
+          "leading_powerline_symbol": "\ue0b2",
+          "template": " <p:symbol-color>\uF408</> {{ .RepoName }}",
+          "type": "git"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:git-text",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_status": true
+          },
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "template": "{{ .HEAD }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }}",
+          "type": "git"
+        },
+        {
+          "background": "p:background-color",
+          "foreground": "p:timer-text",
+          "properties": {
+            "style": "austin",
+            "threshold": 1
+          },
+          "style": "diamond",
+          "trailing_diamond": "\ue0b0",
+          "template": "<p:symbol-color>\ueba2</> {{ .FormattedMs }}",
+          "type": "executiontime"
+        },
+        {
+          "background": "p:error-background",
+          "foreground": "p:error-text",
+          "leading_diamond": " \ue0c5",
+          "trailing_diamond": "\ue0c4",
+          "style": "diamond",
+          "template": " {{ if ne .Code 0 }} \uf00d {{ .Code }}{{ if (ne (reason .Code) (toString .Code)) }} - {{ reason .Code }}{{else}}{{ end }} {{ end }}",
+          "type": "status"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "newline": false,
+      "segments": [
+        {
+          "background": "p:background-color",
+          "foreground": "p:kubernetes-text",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "template": "<p:symbol-color>\uebd8</> {{.Context}}{{if .Namespace}} \uf061 {{.Namespace}}{{end}}",
+          "trailing_diamond": "\ue0b4 ",
+          "type": "kubectl"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "background": "#000000",
+          "foreground": "p:background-color",
+          "style": "plain",
+          "template": "|"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "background": "p:timer-text",
+          "foreground": "p:background-color",
+          "style": "diamond",
+          "leading_diamond": "\u2570\u2500\ue0b6",
+          "trailing_diamond": "\ue0b4 ",
+          "template": "\uf120"
+        }
+      ],
+      "type": "prompt"
+    }
+  ]
+}
