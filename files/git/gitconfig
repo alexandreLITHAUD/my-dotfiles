@@ -14,7 +14,7 @@
 	defaultBranch = main
 
 [core]
-	editor = micro
+	editor = vim
 	pager = delta
 
 [user]
