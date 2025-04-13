@@ -26,6 +26,12 @@ alias gd="git diff"
 alias gco="git checkout"
 alias gb="git branch"
 
+# Go
+# 🧪 Build test binary with debug info
+alias gobuildtestdbg='go test -c -gcflags="all=-N -l"'
+# 🛠️ Build your main app with debug info
+alias gobuilddbg='go build -gcflags="all=-N -l"'
+
 # Docker & Kubernetes
 alias k="kubectl"
 alias kga="kubectl get all"
