@@ -131,6 +131,10 @@ else
 	export EDITOR='micro'
 fi
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.cargo/bin
+
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
