@@ -25,6 +25,14 @@ alias gl="git pull"
 alias gd="git diff"
 alias gco="git checkout"
 alias gb="git branch"
+git-prune-branches () {
+        echo "switching to master or main branch.."
+        git branch | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv} 'main\|master' | xargs -n 1 git checkout
+        echo "fetching with -p option..."
+        git fetch -p
+        echo "running pruning of local branches"
+        git branch -vv | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv} ': gone]' | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv} -v "\*" | awk '{ print $1; }' | xargs -r git branch -D
+}
 
 # Go
 # 🧪 Build test binary with debug info
